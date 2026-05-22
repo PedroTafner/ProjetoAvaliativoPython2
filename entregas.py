@@ -15,7 +15,7 @@ def entregadores(bancoEntregadores,id_pedido):
                 entrega=cadastrar_entregador(id_pedido)
                 id_entregador=p.gerar_id(2)
                 bancoEntregadores[id_entregador]=entrega
-                return bancoEntregadores
+                return bancoEntregadores,id_entregador
             case 2:
                 return
 

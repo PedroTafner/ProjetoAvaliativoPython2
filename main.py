@@ -17,16 +17,20 @@ while opcao != 4:
         case 1:
             novoBancoPedidos,id_pedido=p.pedidos(bancoPedidos)
             bancoPedidos.update(novoBancoPedidos)
-        case 2:     
+        case 2:  
+            entregadoresDisp=[]   
             if bancoPedidos == {}:
                id_pedido=0
-            novoBancoEntregas=e.entregadores(bancoEntregas,id_pedido)
+            novoBancoEntregas,id_entregador=e.entregadores(bancoEntregas,id_pedido)
             bancoEntregas.update(novoBancoEntregas)
+            if bancoEntregas[id_entregador][3] == "Disponível":
+                entregadoresDisp.append(bancoEntregas[id_entregador])
         case 3:
             pass
         case 4:
             print("\nPrograma finalizado\n")
             print(novoBancoEntregas)
+            print(entregadoresDisp)
         case _:
             p.limpar()
 
