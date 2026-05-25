@@ -1,10 +1,11 @@
 import pedidos as p
 import entregas as e
+import limpar as l
 bancoPedidos={}
 bancoEntregas={}
 opcao=0
 while opcao != 4:
-    p.limpar()
+    l.limpar()
     print("\n\t-- MENU PRINCIPAL --")
     print("\n1 - Pedidos")
     print("2 - Entregadores")
@@ -15,22 +16,23 @@ while opcao != 4:
     match opcao:
 
         case 1:
-            novoBancoPedidos,id_pedido=p.pedidos(bancoPedidos)
-            bancoPedidos.update(novoBancoPedidos)
+            try:
+                novoBancoPedidos,id_pedido=p.pedidos(bancoPedidos)
+                bancoPedidos.update(novoBancoPedidos)
+            except:
+                pass
         case 2:  
-            entregadoresDisp=[]   
             if bancoPedidos == {}:
                id_pedido=0
-            novoBancoEntregas,id_entregador=e.entregadores(bancoEntregas,id_pedido)
-            bancoEntregas.update(novoBancoEntregas)
-            if bancoEntregas[id_entregador][3] == "Disponível":
-                entregadoresDisp.append(bancoEntregas[id_entregador])
+            try:
+                novoBancoEntregas,id_entregador=e.entregadores(bancoEntregas,id_pedido)
+                bancoEntregas.update(novoBancoEntregas)
+            except:
+                pass
         case 3:
             pass
         case 4:
             print("\nPrograma finalizado\n")
-            print(novoBancoEntregas)
-            print(entregadoresDisp)
         case _:
-            p.limpar()
+            l.limpar()
 

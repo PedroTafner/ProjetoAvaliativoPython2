@@ -1,26 +1,36 @@
 import pedidos as p
+import limpar as l
+import gerarID as g
 def entregadores(bancoEntregadores,id_pedido):
-    p.limpar()
     opcao=0
-    while opcao != 2:
+    while opcao != 4:
+        l.limpar()
         print("\n\t-- ENTREGADORES --")
         print("\n1 - Cadastrar entregador")
-        print("2 - Voltar para o menu principal")
+        print("2 - Listar entregadores")
+        print("3 - Remover entregador")
+        print("4 - Voltar para o menu principal")
 
         opcao=int(input("\nEscolha uma opção: "))
 
         match opcao:
             
             case 1:
-                entrega=cadastrar_entregador(id_pedido)
-                id_entregador=p.gerar_id(2)
+                entrega=cadastrar(id_pedido)
+                id_entregador=g.gerar_id(2)
                 bancoEntregadores[id_entregador]=entrega
                 return bancoEntregadores,id_entregador
             case 2:
-                return
+                listar(bancoEntregadores)
+            case 3:
+                pass
+            case 4:
+                pass
+            case _:
+                pass
 
-def cadastrar_entregador(id_pedido):
-    p.limpar()
+def cadastrar(id_pedido):
+    l.limpar()
     entrega=[]
     print("\n\t-- CADASTRO DE ENTREGADOR --")
     nome=input("Digite o nome do entregador: ")
@@ -31,3 +41,12 @@ def cadastrar_entregador(id_pedido):
     entrega.append(id_pedido)
     entrega.append(disponibilidade)
     return entrega
+
+def listar(bancoEntregas):
+    l.limpar()
+    print("\n\t-- LISTAGEM DE PEDIDOS --\n")
+    if bancoEntregas == {}:
+        print("Nenhum pedido cadastrado no momento.")
+    else:
+        print(bancoEntregas)
+    input("\nDigite ENTER para prosseguir...")
