@@ -1,5 +1,6 @@
 import pedidos as p
 import entregas as e
+import informacoes as i
 import limpar as l
 bancoPedidos={}
 bancoEntregas={}
@@ -30,7 +31,10 @@ while opcao != 4:
             except:
                 pass
         case 3:
-            pass
+            try:
+                i.informacoes(bancoPedidos, bancoEntregas)
+            except:
+                pass
         case 4:
             print("\nPrograma finalizado\n")
         case _:
