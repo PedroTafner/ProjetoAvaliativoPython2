@@ -33,7 +33,7 @@ def cadastrar(id_pedido):
     l.limpar()
     entrega=[]
     print("\n\t-- CADASTRO DE ENTREGADOR --")
-    nome=input("Digite o nome do entregador: ")
+    nome=input("\nDigite o nome do entregador: ")
     entrega.append(nome)
     veiculo=input("Digite o veículo do entregador: ")
     entrega.append(veiculo)

@@ -2,13 +2,12 @@ import limpar as l
 import gerarID as g
 def pedidos(bancoPedidos):
     opcao=0
-    while opcao != 4:
+    while opcao != 3:
         l.limpar()
         print("\n\t-- PEDIDOS --")
         print("\n1 - Cadastrar pedido")
-        print("2 - Listar pedidos")
-        print("3 - Atualizar pedido")
-        print("4 - Voltar para o Menu Principal")
+        print("2 - Atualizar pedido")
+        print("3 - Voltar para o Menu Principal")
 
         opcao=int(input("\nEscolha uma opção: "))
         match opcao:
@@ -18,10 +17,8 @@ def pedidos(bancoPedidos):
                 bancoPedidos[id_pedido]=pedido
                 return  bancoPedidos,id_pedido
             case 2:
-                listar(bancoPedidos)
-            case 3:
                 atualizar(bancoPedidos)
-            case 4:
+            case 3:
                 return
             case _:
                 l.limpar()
@@ -70,14 +67,6 @@ def atualizar(bancoPedidos):
             case _:
                 l.limpar()
 
-def listar(bancoPedidos):
-    l.limpar()
-    print("\n\t-- LISTAGEM DE PEDIDOS --\n")
-    if bancoPedidos == {}:
-        print("Nenhum pedido cadastrado no momento.")
-    else:
-        print(bancoPedidos)
-    input("\nDigite ENTER para prosseguir...")
 
 def atualizar_status(bancoPedidos):
     l.limpar()

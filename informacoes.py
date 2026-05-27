@@ -37,24 +37,25 @@ def pedidos_pendentes(bancoPedidos):
     l.limpar()
     print("\n\t-- PEDIDOS PENDENTES --\n")
     if bancoPedidos == {}:
-        print("Nenhum pedido cadastrado.")
+        print("Nenhum pedido cadastrado no momento.")
     else:
+        id_pedido=input("\nDigite o ID do pedido: ")
         for id_pedido in bancoPedidos:
             if bancoPedidos[id_pedido][4] == "Pendente":
                 print(f"ID: {id_pedido} | Cliente: {bancoPedidos[id_pedido][0]} | Status: Pendente")
-    input("\nPressione ENTER...")
+    input("\nPrecione ENTER para prosseguir...")
 
 
 def pedidos_entregues(bancoPedidos):
     l.limpar()
     print("\n\t-- PEDIDOS ENTREGUES --\n")
     if bancoPedidos == {}:
-        print("Nenhum pedido cadastrado.")
+        print("Nenhum pedido cadastrado no momento.")
     else:
         for id_pedido in bancoPedidos:
             if bancoPedidos[id_pedido][4] == "Entregue":
                 print(f"ID: {id_pedido} | Cliente: {bancoPedidos[id_pedido][0]} | Status: Entregue")
-    input("\nPressione ENTER...")
+    input("\nPressione ENTER para prosseguir...")
 
 
 def buscar_pedido(bancoPedidos):
@@ -63,40 +64,47 @@ def buscar_pedido(bancoPedidos):
     id_busca = input("Digite o ID do pedido: ")
     if id_busca in bancoPedidos:
         dados = bancoPedidos[id_busca]
-        print(f"\nID: {id_busca}")
-        print(f"Cliente: {dados[0]}")
-        print(f"Endereço: {dados[1]}")
-        print(f"Status: {dados[4]}")
+        print(f"\nID: {id_busca} | Cliente: {dados[0]} | Endereço: {dados[1]} | Status: {dados[4]}")
     else:
         print("Pedido não encontrado.")
-    input("\nPressione ENTER...")
+    input("\nPressione ENTER para prosseguir...")
+
+def listar_pedido(bancoPedidos):
+    l.limpar()
+    print("\n\t-- LISTAGEM DE PEDIDOS --\n")
+    if bancoPedidos == {}:
+        print("Nenhum pedido cadastrado no momento.")
+    else:
+        print(bancoPedidos)
+    input("\nPrecione ENTER para prosseguir...")
 
 
 def entregador_disponivel(bancoEntregas):
     l.limpar()
     print("\n\t-- ENTREGADORES DISPONÍVEIS --\n")
     if bancoEntregas == {}:
-        print("Nenhum entregador cadastrado.")
+        print("Nenhum entregador cadastrado no momento.")
     else:
         for id_entregador in bancoEntregas:
             if bancoEntregas[id_entregador][3] == "Disponível":
                 print(f"ID: {id_entregador} | Nome: {bancoEntregas[id_entregador][0]}")
-    input("\nPressione ENTER...")
+    input("\nPressione ENTER para prosseguir...")
 
 
 def entregas_entregador(bancoPedidos, bancoEntregas):
     l.limpar()
-    print("\n\t-- ENTREGAS DE UM ENTREGADOR --\n")
-    id_entregador = input("Digite o ID do entregador: ")
-    if id_entregador in bancoEntregas:
-        pedido_id = bancoEntregas[id_entregador][2]
-        if pedido_id in bancoPedidos:
-            print(f"\nEntregador: {bancoEntregas[id_entregador][0]}")
-            print(f"Pedido: {pedido_id}")
-            print(f"Cliente: {bancoPedidos[pedido_id][0]}")
+    print("\n\t-- ENTREGAS DE UM ENTREGADOR --")
+    id_entregador = input("\nDigite o ID do entregador: ")
+    if bancoEntregas != {}:
+        if id_entregador in bancoEntregas:
+            pedido_id = bancoEntregas[id_entregador][2]
+            if pedido_id in bancoPedidos:
+                print(f"\nEntregador: {bancoEntregas[id_entregador][0]} | Pedido: {pedido_id} | Cliente: {pedido_id[0]}")
+        else:
+            print("Entregador não encontrado.")
     else:
-        print("Entregador não encontrado.")
-    input("\nPressione ENTER...")
+        print("Nenhum entregador cadastrado no momento.")
+    input("\nPressione ENTER para prosseguir...")
 
 def relatorios(bancoPedidos, bancoEntregas):
     opcao = 0
