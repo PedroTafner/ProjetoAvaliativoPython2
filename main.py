@@ -31,10 +31,7 @@ while opcao != 4:
             except:
                 pass
         case 3:
-            try:
-                i.informacoes(bancoPedidos, bancoEntregas)
-            except:
-                pass
+            i.informacoes(bancoPedidos, bancoEntregas)
         case 4:
             print("\nPrograma finalizado\n")
         case _:
