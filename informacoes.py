@@ -108,3 +108,24 @@ def entregas_entregador(bancoPedidos, bancoEntregas):
 
 def relatorios(bancoPedidos, bancoEntregas):
     opcao = 0
+    while opcao != 5:
+        l.limpar()
+        print("\n\t-- RELATÓRIOS OPERACIONAIS --")
+        print("\n1 - Total de Pedidos")
+        print("2 - Quantidade por Status")
+        print("3 - Alta Prioridade")
+        print("4 - Entregador com Maior Número de Entregas")
+        print("5 - Voltar")
+        
+        opcao = int(input("\nEscolha uma opção: "))
+        match opcao:
+            case 1:
+                total_pedidos(bancoPedidos)
+            case 2:
+                quantidade_status(bancoPedidos)
+            case 3:
+                alta_prioridade(bancoPedidos)
+            case 4:
+                maior_entregas(bancoEntregas)
+            case 5:
+                return
