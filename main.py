@@ -17,19 +17,20 @@ while opcao != 4:
     match opcao:
 
         case 1:
-            try:
-                novoBancoPedidos,id_pedido=p.pedidos(bancoPedidos)
-                bancoPedidos.update(novoBancoPedidos)
-            except:
-                pass
+                resultado=p.pedidos(bancoPedidos,bancoEntregas)
+                if resultado != None:
+                    novoBancoPedidos,bancoEntregas,id_pedido=resultado
+                    bancoPedidos.update(novoBancoPedidos)
+                    bancoEntregas.update(novoBancoEntregas)
+                    bancoPedidos,bancoEntregas=i.integrar_pedidoEntregador(bancoPedidos,bancoEntregas)
         case 2:  
-            if bancoPedidos == {}:
-               id_pedido=0
-            try:
-                novoBancoEntregas,id_entregador=e.entregadores(bancoEntregas,id_pedido)
+            id_pedido=0
+            result=e.entregadores(bancoPedidos,bancoEntregas,id_pedido)
+            if result != None:
+                novoBancoPedidos,novoBancoEntregas,id_entregador=result
                 bancoEntregas.update(novoBancoEntregas)
-            except:
-                pass
+                bancoPedidos.update(novoBancoPedidos)
+                bancoPedidos,bancoEntregas=i.integrar_pedidoEntregador(bancoPedidos,bancoEntregas)
         case 3:
             i.informacoes(bancoPedidos, bancoEntregas)
         case 4:

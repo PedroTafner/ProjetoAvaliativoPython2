@@ -1,7 +1,8 @@
 import pedidos as p
 import limpar as l
 import gerarID as g
-def entregadores(bancoEntregadores,id_pedido):
+import informacoes as i
+def entregadores(bancoPedidos,bancoEntregas,id_pedido):
     opcao=0
     while opcao != 4:
         l.limpar()
@@ -18,10 +19,13 @@ def entregadores(bancoEntregadores,id_pedido):
             case 1:
                 entrega=cadastrar(id_pedido)
                 id_entregador=g.gerar_id(2)
-                bancoEntregadores[id_entregador]=entrega
-                return bancoEntregadores,id_entregador
+                bancoEntregas[id_entregador]=entrega
+                if bancoEntregas == {} or bancoPedidos == {}:
+                    return None
+                else:
+                    return bancoPedidos,bancoEntregas,id_entregador
             case 2:
-                listar(bancoEntregadores)
+                listar(bancoEntregas)
             case 3:
                 pass
             case 4:

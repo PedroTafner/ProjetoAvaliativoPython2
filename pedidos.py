@@ -1,6 +1,7 @@
 import limpar as l
 import gerarID as g
-def pedidos(bancoPedidos):
+import informacoes as i
+def pedidos(bancoPedidos,bancoEntregas):
     opcao=0
     while opcao != 3:
         l.limpar()
@@ -15,9 +16,12 @@ def pedidos(bancoPedidos):
                 pedido=cadastrar()
                 id_pedido=g.gerar_id(1)
                 bancoPedidos[id_pedido]=pedido
-                return  bancoPedidos,id_pedido
+                if bancoPedidos == {} or bancoEntregas == {}:
+                    return None
+                else:
+                    return  bancoPedidos,bancoEntregas,id_pedido
             case 2:
-                atualizar(bancoPedidos)
+                atualizar(bancoPedidos,bancoEntregas)
             case 3:
                 return
             case _:
@@ -38,9 +42,11 @@ def cadastrar():
     pedido.append(descricao)
     status="Pendente"
     pedido.append(status)
+    id_entregador=0
+    pedido.append(id_entregador)
     return pedido
 
-def atualizar(bancoPedidos):
+def atualizar(bancoPedidos,bancoEntregas):
     opcao=0
     while opcao != 5:
         l.limpar()
@@ -55,7 +61,7 @@ def atualizar(bancoPedidos):
         match opcao:
 
             case 1:
-                atualizar_status(bancoPedidos)
+                atualizar_status(bancoPedidos,bancoEntregas)
             case 2:
                 cancelar(bancoPedidos)
             case 3:
@@ -68,19 +74,35 @@ def atualizar(bancoPedidos):
                 l.limpar()
 
 
-def atualizar_status(bancoPedidos):
+def atualizar_status(bancoPedidos,bancoEntregas):
     l.limpar()
     print("\n\t-- ATUALIZAR STATUS DO PEDIDO --")
     if bancoPedidos != {}:
         id=input("\nDigite o ID do pedido que você quer atualizar: ")
-        if id in bancoPedidos.keys():
-            x=input("\nQual o novo status do pedido: ")
-            bancoPedidos[id][4]=x
-            print("\nStatus atualizado com sucesso!")
-            input("\nDigite ENTER para prosseguir...")
+        if bancoPedidos[id][5] == 0:
+            if id in bancoPedidos.keys():
+                x=input("\nQual o novo status do pedido: ")
+                bancoPedidos[id][4]=x
+                print("\nStatus atualizado com sucesso!")
+                input("\nDigite ENTER para prosseguir...")
+            else:
+                print("\nPedido não encontrado.")
+                input("\nDigite ENTER para prosseguir...")
         else:
-            print("\nPedido não encontrado.")
-            input("\nDigite ENTER para prosseguir...")
+            if id in bancoPedidos.keys():
+                novo_status=input("\nQual o novo status do pedido: ")
+                if novo_status == "Entregue":
+                    id_entregador=bancoPedidos[id][5]
+                    bancoPedidos[id][4]=novo_status
+                    bancoPedidos[id][5]=0
+                    if id_entregador != 0:
+                        bancoEntregas[id_entregador][3]="Disponível"
+                        bancoEntregas[id_entregador][2]=0
+                print("\nStatus atualizado com sucesso!")
+                input("\nDigite ENTER para prosseguir...")
+            else:
+                print("\nPedido não encontrado.")
+                input("\nDigite ENTER para prosseguir...")
     else:
         print("\nNenhum pedido cadastrado no momento.")
         input("\nDigite ENTER para prosseguir...")
