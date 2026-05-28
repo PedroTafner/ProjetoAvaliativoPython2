@@ -4,20 +4,19 @@ import gerarID as g
 import informacoes as i
 def entregadores(bancoPedidos,bancoEntregas,id_pedido):
     opcao=0
-    while opcao != 4:
+    while opcao != 3:
         l.limpar()
         print("\n\t-- ENTREGADORES --")
         print("\n1 - Cadastrar entregador")
-        print("2 - Listar entregadores")
-        print("3 - Remover entregador")
-        print("4 - Voltar para o menu principal")
+        print("2 - Remover entregador")
+        print("3 - Voltar para o menu principal")
 
         opcao=int(input("\nEscolha uma opção: "))
 
         match opcao:
             
             case 1:
-                entrega=cadastrar(id_pedido)
+                entrega=cadastrar(bancoEntregas,id_pedido)
                 id_entregador=g.gerar_id(2)
                 bancoEntregas[id_entregador]=entrega
                 if bancoEntregas == {} or bancoPedidos == {}:
@@ -25,32 +24,45 @@ def entregadores(bancoPedidos,bancoEntregas,id_pedido):
                 else:
                     return bancoPedidos,bancoEntregas,id_entregador
             case 2:
-                listar(bancoEntregas)
+                remover_entregador(bancoEntregas)
             case 3:
-                pass
-            case 4:
-                pass
+                return
             case _:
-                pass
+                l.limpar()
 
-def cadastrar(id_pedido):
+def cadastrar(bancoEntregas,id_pedido):
     l.limpar()
     entrega=[]
     print("\n\t-- CADASTRO DE ENTREGADOR --")
     nome=input("\nDigite o nome do entregador: ")
+    for id_entregador in bancoEntregas.keys():
+        while nome == bancoEntregas[id_entregador][0]:
+            l.limpar()
+            print("\n\t-- CADASTRO DE ENTREGADOR --")
+            print("\nEntregador já cadastrado, tente novamente.")
+            nome=input("\nDigite o nome do entregador: ")
     entrega.append(nome)
     veiculo=input("Digite o veículo do entregador: ")
     entrega.append(veiculo)
     disponibilidade="Disponível"
     entrega.append(id_pedido)
     entrega.append(disponibilidade)
+    num_entregas=0
+    entrega.append(num_entregas)
     return entrega
 
-def listar(bancoEntregas):
+def remover_entregador(bancoEntregas):
     l.limpar()
-    print("\n\t-- LISTAGEM DE PEDIDOS --\n")
-    if bancoEntregas == {}:
-        print("Nenhum pedido cadastrado no momento.")
+    print("\n\t-- REMOÇÃO DE ENTREGADOR --")
+    if bancoEntregas != {}:
+        id=input("\nDigite o ID do entregador que você quer remover: ")
+        if id not in bancoEntregas.keys():
+            print("\nEntregador não encontrado.")
+            input("\nPrecione ENTER para prosseguir...")
+        else:
+            del bancoEntregas[id]
+            print("\nEntregador removido com sucesso!")
+            input("\nPrecione ENTER para prosseguir...")
     else:
-        print(bancoEntregas)
-    input("\nDigite ENTER para prosseguir...")
+        print("\nNenhum entregador cadastrado no momento.")
+        input("\nPrecione ENTER para prosseguir...")
