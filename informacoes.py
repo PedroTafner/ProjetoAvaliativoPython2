@@ -104,15 +104,18 @@ def listar_pedido(bancoPedidos,bancoEntregas):
         for id_pedido,dados in bancoPedidos.items():
             if dados[4] == "Pendente":
                 print(f"\nID: {id_pedido} | Cliente: {dados[0]} | Descrição: {dados[3]} | Endereço: {dados[1]} | Prioridade: {dados[2]} | Status: {dados[4]}")
-        print("\n-- PEDIDOS ENTREGUES --")
-        for id_pedido,dados in bancoPedidos.items():
-            if dados[4] == "Entregue":
-                print(f"\nID: {id_pedido} | Cliente: {bancoPedidos[id_pedido][0]} | Descrição: {dados[3]} | Endereço: {dados[1]} | Prioridade: {dados[2]} | Status: {dados[4]}")
         print("\n-- PEDIDOS EM ROTA --")
         for id_pedido,dados in bancoPedidos.items():
             if dados[4] == "Em rota":
                 print(f"\nID: {id_pedido} | Cliente: {bancoPedidos[id_pedido][0]} | Status: {dados[4]} | Descrição: {dados[3]} | Endereço: {dados[1]} | Prioridade: {dados[2]} | ID_Entregador: {dados[5]}")
-
+        print("\n-- PEDIDOS ENTREGUES --")
+        for id_pedido,dados in bancoPedidos.items():
+            if dados[4] == "Entregue":
+                print(f"\nID: {id_pedido} | Cliente: {bancoPedidos[id_pedido][0]} | Descrição: {dados[3]} | Endereço: {dados[1]} | Prioridade: {dados[2]} | Status: {dados[4]}")
+        print("\n-- PEDIDOS CANCELADOS --")
+        for id_pedido,dados in bancoPedidos.items():
+            if dados[4] == "Cancelado":
+                print(f"\nID: {id_pedido} | Cliente: {bancoPedidos[id_pedido][0]} | Status: {dados[4]} | Descrição: {dados[3]} | Endereço: {dados[1]} | Prioridade: {dados[2]} | ID_Entregador: {dados[5]}")
     input("\nPrecione ENTER para prosseguir...")
 
 
