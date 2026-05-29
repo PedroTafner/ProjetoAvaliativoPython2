@@ -23,7 +23,7 @@ while opcao != 4:
                     if dados[2] == "Alta":
                         prioridade[idPedido]=dados
             if resultado != None:
-                novoBancoPedidos,novoBancoEntregas,id_pedido=resultado
+                bancoPedidos,bancoEntregas,id_pedido=resultado
                 bancoPedidos,bancoEntregas=i.integrar_pedidoEntregador(bancoPedidos,bancoEntregas,prioridade)
         case 2:  
             id_pedido=0
