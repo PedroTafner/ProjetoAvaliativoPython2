@@ -1,6 +1,7 @@
 import limpar as l
 import gerarID as g
 import informacoes as i
+
 def pedidos(bancoPedidos,bancoEntregas):
     opcao=0
     while opcao != 3:
@@ -27,7 +28,6 @@ def pedidos(bancoPedidos,bancoEntregas):
             case _:
                 l.limpar()
 
-   
 def cadastrar():
     l.limpar()
     pedido=[]
@@ -81,7 +81,6 @@ def atualizar(bancoPedidos,bancoEntregas):
             case _:
                 l.limpar()
 
-
 def cancelar_pedido(bancoPedidos,bancoEntregas):
     l.limpar()
     cont=0
@@ -95,29 +94,27 @@ def cancelar_pedido(bancoPedidos,bancoEntregas):
                 print(f"\nID: {id_pedido} | Nome: {dados[0]} | ID do entregador: {dados[5]} | Status: {dados[4]}")
         if cont == 0:
             print("\nNenhum pedido cadastrado no momento.")
-            input("\nPrecione ENTER para prosseguir...")
+            input("\nPressione ENTER para prosseguir...")
         id=input("\nDigite o ID do pedido que você quer cancelar: ")
         if id not in bancoPedidos.keys():
             print("\nPedido não encontrado.")
-            input("\nPrecione ENTER para prosseguir...")
+            input("\nPressione ENTER para prosseguir...")
             return
         elif bancoPedidos[id][5] == 0:
             bancoPedidos[id][4]="Cancelado"
             print("\nPedido cancelado com sucesso!")
-            input("\nPrecione ENTER para prosseguir...")
+            input("\nPressione ENTER para prosseguir...")
         else:
             id_entregador=bancoPedidos[id][5]
             bancoPedidos[id][5]="Cancelado"
             bancoEntregas[id_entregador][2]=0
             bancoEntregas[id_entregador][3]="Disponível"
             print("\nPedido cancelado com sucesso!")
-            input("\nPrecione ENTER para prosseguir...")
+            input("\nPressione ENTER para prosseguir...")
     else:
         print("\nNenhum pedido cadastrado no momento.")
         input("\nDigite ENTER para prosseguir...")
             
-
-
 def remover_associacao(bancoPedidos,bancoEntregas):
     l.limpar()
     print("\n\t-- REMOVER ASSOCIAÇÃO DE ENTREGADOR --")
@@ -126,7 +123,7 @@ def remover_associacao(bancoPedidos,bancoEntregas):
         for id_pedido,dados in bancoPedidos.items():
             statusP=str(dados[4])
             statusE=str(dados[5])
-            if statusE == "0" or statusP != "Em rota":
+            if statusE != "0" or statusP == "Em rota":
                 print(f"\nID: {id_pedido} | Nome: {dados[0]} | ID do entregador: {dados[5]}")
         id_pedido=input("\nDigite o ID do pedido que você quer desassociar de um entregador: ")
         if id_pedido in bancoPedidos.keys():
@@ -140,67 +137,71 @@ def remover_associacao(bancoPedidos,bancoEntregas):
                 input("\nDigite ENTER para prosseguir...")
             else:
                 print("\nNenhum entregador associado à esse pedido.")
-                input("\nPrecione ENTER para prosseguir...")
+                input("\nPrenPressionecione ENTER para prosseguir...")
         else:
             print("\nEntregador não encontrado.")
-            input("\nPrecione ENTER para prosseguir...")
+            input("\nPressione ENTER para prosseguir...")
     else:
         print("\nNenhum entregador cadastrado no momento.")
-        input("\nPrecione ENTER para prosseguir...")
+        input("\nPressione ENTER para prosseguir...")
 
-def associar_pedido(bancoPedidos,bancoEntregas):
+def associar_pedido(bancoPedidos, bancoEntregas):
     l.limpar()
     print("\n\t-- ASSOCIAR PEDIDOS À ENTREGADORES --")
     if bancoPedidos != {}:
-        for id_pedido,dadosP in bancoPedidos.items():
-            for id_entregador,dadosE in bancoEntregas.items():
+        associou = False
+        for id_pedido, dadosP in bancoPedidos.items():
+            for id_entregador, dadosE in bancoEntregas.items():
                 statusP = str(dadosP[4])
                 statusE = str(dadosE[3])
                 if statusP == "Pendente" and statusE == "Disponível":
-                    dadosP[4]="Em rota"
-                    dadosP[5]=id_entregador
-                    dadosE[3]="Em trabalho"
-                    dadosE[2]=id_pedido
+                    dadosP[4] = "Em rota"
+                    dadosP[5] = id_entregador
+                    dadosE[3] = "Em trabalho"
+                    dadosE[2] = id_pedido
+                    associou = True
                     print("\nPedido associado com sucesso!")
                     input("\nPrecisone ENTER para prosseguir...")
-                else:
-                    print("\nNenhum entregador ou pedido disponível no momento.")
+                    return
+        if not associou:
+            print("\nNenhum entregador ou pedido disponível no momento.")
+            input("\nPressione ENTER para prosseguir...")
     else:
         print("\nNenhum pedido cadastrado no momento.")
-        input("\nPrecione ENTER para prosseguir...")
+        input("\nPressione ENTER para prosseguir...")
 
-def finalizar_pedido(bancoPedidos,bancoEntregas):
+def finalizar_pedido(bancoPedidos, bancoEntregas):
     l.limpar()
     print("\n\t-- FINALIZAR PEDIDO --")
     if bancoPedidos != {}:
         if bancoEntregas != {}:
             print("\n-- PEDIDOS DISPONÍVEIS --")
-            for id_pedido,dados in bancoPedidos.items():
+            for id_pedido, dados in bancoPedidos.items():
                 status = str(dados[4])
                 if status == "Em rota":
                     print(f"\nID: {id_pedido} | Nome: {dados[0]} | ID do entregador: {dados[5]}")
-            id=input("\nDigite o ID do pedido que será finalizado: ")
+            id = input("\nDigite o ID do pedido que será finalizado: ")
             if id not in bancoPedidos.keys():
                 print("\nPedido não encontrado.")
-                input("\nPrecione ENTER para prosseguir...")
+                input("\nPressione ENTER para prosseguir...")
                 return
             else:
-                for id_pedido in bancoPedidos.keys():
-                    for id_entregador in bancoEntregas.keys():
-                        if bancoPedidos[id_pedido][4] == "Em rota":
-                            bancoPedidos[id_pedido][4]="Entregue"
-                            bancoPedidos[id_pedido][5]=0
-                            bancoEntregas[id_entregador][3]="Disponível"
-                            bancoEntregas[id_entregador][2]=0
-                            bancoEntregas[id_entregador][4]=bancoEntregas[id_entregador][4]+1
+                if bancoPedidos[id][4] == "Em rota":
+                    id_entregador = bancoPedidos[id][5]
+                    bancoPedidos[id][4] = "Entregue"
+                    bancoPedidos[id][5] = 0
+                    if id_entregador in bancoEntregas:
+                        bancoEntregas[id_entregador][3] = "Disponível"
+                        bancoEntregas[id_entregador][2] = 0
+                        bancoEntregas[id_entregador][4] = bancoEntregas[id_entregador][4] + 1
             print("\nPedido finalizado com sucesso!")
-            input("\nPrecione ENTER para prosseguir...")
+            input("\nPressione ENTER para prosseguir...")
         else:
             print("\nNenhum entregador cadastrado no momento.")
-            input("\nPrecione ENTER para prosseguir...")
+            input("\nPressione ENTER para prosseguir...")
     else:
         print("\nNenhum pedido cadastrado no momento.")
-        input("\nPrecione ENTER para prosseguir...")
+        input("\nPressione ENTER para prosseguir...")
 
 def reativar_pedido(bancoPedidos):
     l.limpar()
@@ -214,13 +215,12 @@ def reativar_pedido(bancoPedidos):
         id=input("\nDigite o ID do pedido que será reativado: ")
         if id not in bancoPedidos.keys():
             print("\nPedido não encontrado.")
-            input("\nPrecione ENTER para prosseguir...")
+            input("\nPressione ENTER para prosseguir...")
             return
         elif bancoPedidos[id][4] == "Cancelado":
             bancoPedidos[id][4]="Pendente"
             print("\nPedido reativado com sucesso!")
-            input("\nPrecione ENTER para prosseguir...")
+            input("\nPressione ENTER para prosseguir...")
     else:
         print("\nNenhum pedido cadastrado no momento.")
-        input("\nPrecione ENTER para prosseguir...")
-
+        input("\nPressione ENTER para prosseguir...")

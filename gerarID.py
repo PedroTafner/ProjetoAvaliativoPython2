@@ -1,4 +1,5 @@
 import random as r
+
 def gerar_id(opcao):
     id = ""
     if opcao == 1:

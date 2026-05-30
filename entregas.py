@@ -2,6 +2,7 @@ import pedidos as p
 import limpar as l
 import gerarID as g
 import informacoes as i
+
 def entregadores(bancoPedidos,bancoEntregas,id_pedido):
     opcao=0
     while opcao != 3:
@@ -58,11 +59,11 @@ def remover_entregador(bancoEntregas):
         id=input("\nDigite o ID do entregador que você quer remover: ")
         if id not in bancoEntregas.keys():
             print("\nEntregador não encontrado.")
-            input("\nPrecione ENTER para prosseguir...")
+            input("\nPressione ENTER para prosseguir...")
         else:
             del bancoEntregas[id]
             print("\nEntregador removido com sucesso!")
-            input("\nPrecione ENTER para prosseguir...")
+            input("\nPressione ENTER para prosseguir...")
     else:
         print("\nNenhum entregador cadastrado no momento.")
-        input("\nPrecione ENTER para prosseguir...")
+        input("\nPressione ENTER para prosseguir...")

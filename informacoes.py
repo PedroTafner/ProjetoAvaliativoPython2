@@ -58,12 +58,11 @@ def num_entregas(bancoEntregas):
     if bancoEntregas != {}:
         for id,dados in bancoEntregas.items():
             print(f"\nID: {id} | Nome: {dados[0]} | Número de entregas: {dados[4]}")
-        input("\nPrecione ENTER para prosseguir...")
+        input("\nPressione ENTER para prosseguir...")
     else:
         print("\nNenhum entregador cadastrado no momento.")
-        input("\nPrecione ENTER para prosseguir...")
+        input("\nPressione ENTER para prosseguir...")
     
-
 def buscar_pedido(bancoPedidos):
     l.limpar()
     print("\n\t-- BUSCAR PEDIDO POR NOME DO CLIENTE --\n")
@@ -71,11 +70,13 @@ def buscar_pedido(bancoPedidos):
         print("Nenhum pedido cadastrado no momento.")
     else:
         nome = input("Digite o nome do cliente do pedido: ")
-        for id_pedido,dados in bancoPedidos.items():
-            if dados[0] == nome:
+        encontrado = False
+        for id_pedido, dados in bancoPedidos.items():
+            if dados[0].lower() == nome.lower():
                 print(f"\nID: {id_pedido} | Cliente: {dados[0]} | Endereço: {dados[1]} | Prioridade: {dados[2]} | Descrição: {dados[3]} | Status: {dados[4]} | ID do entregador: {dados[5]}")
-            else:
-                print("\nPedido não encontrado.")
+                encontrado = True
+        if not encontrado:
+            print("\nPedido não encontrado.")
     input("\nPressione ENTER para prosseguir...")
 
 def listar_entregador(bancoEntregas):
@@ -92,7 +93,7 @@ def listar_entregador(bancoEntregas):
         for id_entregador in bancoEntregas:
             if bancoEntregas[id_entregador][3] == "Em trabalho":
                 print(f"\nID: {id_entregador} | Nome: {bancoEntregas[id_entregador][0]} | Veículo: {bancoEntregas[id_entregador][1]} | Status: {bancoEntregas[id_entregador][3]} | Número de entregas: {bancoEntregas[id_entregador][4]}")
-    input("\nPrecione ENTER para prosseguir...")
+    input("\nPressione ENTER para prosseguir...")
 
 def listar_pedido(bancoPedidos,bancoEntregas):
     l.limpar()
@@ -116,8 +117,7 @@ def listar_pedido(bancoPedidos,bancoEntregas):
         for id_pedido,dados in bancoPedidos.items():
             if dados[4] == "Cancelado":
                 print(f"\nID: {id_pedido} | Cliente: {bancoPedidos[id_pedido][0]} | Status: {dados[4]} | Descrição: {dados[3]} | Endereço: {dados[1]} | Prioridade: {dados[2]} | ID_Entregador: {dados[5]}")
-    input("\nPrecione ENTER para prosseguir...")
-
+    input("\nPressione ENTER para prosseguir...")
 
 def entregas_entregador(bancoPedidos, bancoEntregas):
     l.limpar()
@@ -165,7 +165,6 @@ def total_pedidos(bancoPedidos):
     print(f"Total: {total} pedidos")
     input("\nPressione ENTER para prosseguir...")
 
-
 def quantidade_status(bancoPedidos):
     l.limpar()
     print("\n\t-- PEDIDOS POR STATUS --\n")
@@ -178,22 +177,18 @@ def quantidade_status(bancoPedidos):
         status = str(bancoPedidos[id_pedido][4])
         if status == "Pendente":
             pendente = pendente + 1
-        else:
-            if status == "Em Rota":
-                em_rota = em_rota + 1
-            else:
-                if status == "Entregue":
-                    entregue = entregue + 1
-                else:
-                    if status == "Cancelado":
-                        cancelado = cancelado + 1
+        elif status == "Em rota":
+            em_rota = em_rota + 1
+        elif status == "Entregue":
+            entregue = entregue + 1
+        elif status == "Cancelado":
+            cancelado = cancelado + 1
     
     print(f"Pendente: {pendente}")
     print(f"Em Rota: {em_rota}")
     print(f"Entregue: {entregue}")
     print(f"Cancelado: {cancelado}")
     input("\nPressione ENTER para prosseguir...")
-
 
 def alta_prioridade(bancoPedidos):
     l.limpar()
@@ -203,13 +198,17 @@ def alta_prioridade(bancoPedidos):
             print(f"ID: {id_pedido} | Cliente: {bancoPedidos[id_pedido][0]}")
     input("\nPressione ENTER para prosseguir...")
 
-
 def maior_num_entregas(bancoEntregas):
     l.limpar()
     print("\n\t-- ENTREGADOR COM MAIOR NÚMERO DE ENTREGAS --\n")
     if bancoEntregas != {}:
-        primeira_chave = list(bancoEntregas.keys())[0]
-        print(f"Entregador: {bancoEntregas[primeira_chave][0]}")
+        maior_entregas = -1
+        nome_maior = ""
+        for id_entregador, dados in bancoEntregas.items():
+            if dados[4] > maior_entregas:
+                maior_entregas = dados[4]
+                nome_maior = dados[0]
+        print(f"Entregador: {nome_maior} | Total de entregas: {maior_entregas}")
     else:
         print("Nenhum entregador cadastrado.")
     input("\nPressione ENTER para prosseguir...")
