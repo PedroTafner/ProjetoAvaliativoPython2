@@ -89,7 +89,8 @@ def cancelar_pedido(bancoPedidos,bancoEntregas):
     if bancoPedidos != {}:
         print("\n-- PEDIDOS DISPONÍVEIS --")
         for id_pedido,dados in bancoPedidos.items():
-            if dados[4] != "Entregue" or dados[4] != "Em rota":
+            status = str(dados[4])
+            if status == "Pendente":
                 cont+=1
                 print(f"\nID: {id_pedido} | Nome: {dados[0]} | ID do entregador: {dados[5]} | Status: {dados[4]}")
         if cont == 0:
@@ -123,7 +124,10 @@ def remover_associacao(bancoPedidos,bancoEntregas):
     if bancoPedidos != {}:
         print("\n-- PEDIDOS DISPONÍVEIS --")
         for id_pedido,dados in bancoPedidos.items():
-            print(f"\nID: {id_pedido} | Nome: {dados[0]} | ID do entregador: {dados[5]}")
+            statusP=str(dados[4])
+            statusE=str(dados[5])
+            if statusE == "0" or statusP != "Em rota":
+                print(f"\nID: {id_pedido} | Nome: {dados[0]} | ID do entregador: {dados[5]}")
         id_pedido=input("\nDigite o ID do pedido que você quer desassociar de um entregador: ")
         if id_pedido in bancoPedidos.keys():
             if bancoPedidos[id_pedido][5] != 0:
@@ -150,7 +154,9 @@ def associar_pedido(bancoPedidos,bancoEntregas):
     if bancoPedidos != {}:
         for id_pedido,dadosP in bancoPedidos.items():
             for id_entregador,dadosE in bancoEntregas.items():
-                if dadosP[4] == "Pendente" and dadosE[3] == "Disponível":
+                statusP = str(dadosP[4])
+                statusE = str(dadosE[3])
+                if statusP == "Pendente" and statusE == "Disponível":
                     dadosP[4]="Em rota"
                     dadosP[5]=id_entregador
                     dadosE[3]="Em trabalho"
@@ -170,7 +176,9 @@ def finalizar_pedido(bancoPedidos,bancoEntregas):
         if bancoEntregas != {}:
             print("\n-- PEDIDOS DISPONÍVEIS --")
             for id_pedido,dados in bancoPedidos.items():
-                print(f"\nID: {id_pedido} | Nome: {dados[0]} | ID do entregador: {dados[5]}")
+                status = str(dados[4])
+                if status == "Em rota":
+                    print(f"\nID: {id_pedido} | Nome: {dados[0]} | ID do entregador: {dados[5]}")
             id=input("\nDigite o ID do pedido que será finalizado: ")
             if id not in bancoPedidos.keys():
                 print("\nPedido não encontrado.")
@@ -200,7 +208,8 @@ def reativar_pedido(bancoPedidos):
     if bancoPedidos != {}:
         print("\n-- PEDIDOS CANCELADOS --")
         for id_pedido,dados in bancoPedidos.items():
-            if dados[4] == "Cancelado":
+            status = str(dados[4])
+            if status == "Cancelado":
                 print(f"\nID: {id_pedido} | Nome: {dados[0]} | ID do entregador: {dados[5]}")
         id=input("\nDigite o ID do pedido que será reativado: ")
         if id not in bancoPedidos.keys():

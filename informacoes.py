@@ -107,7 +107,7 @@ def listar_pedido(bancoPedidos,bancoEntregas):
         print("\n-- PEDIDOS EM ROTA --")
         for id_pedido,dados in bancoPedidos.items():
             if dados[4] == "Em rota":
-                print(f"\nID: {id_pedido} | Cliente: {bancoPedidos[id_pedido][0]} | Status: {dados[4]} | Descrição: {dados[3]} | Endereço: {dados[1]} | Prioridade: {dados[2]} | ID_Entregador: {dados[5]}")
+                print(f"\nID: {id_pedido} | Cliente: {bancoPedidos[id_pedido][0]} | Descrição: {dados[3]} | Endereço: {dados[1]} | Prioridade: {dados[2]}  | Status: {dados[4]} | ID_Entregador: {dados[5]}")
         print("\n-- PEDIDOS ENTREGUES --")
         for id_pedido,dados in bancoPedidos.items():
             if dados[4] == "Entregue":
@@ -175,7 +175,7 @@ def quantidade_status(bancoPedidos):
     cancelado = 0
     
     for id_pedido in bancoPedidos.keys():
-        status = bancoPedidos[id_pedido][4]
+        status = str(bancoPedidos[id_pedido][4])
         if status == "Pendente":
             pendente = pendente + 1
         else:
