@@ -15,6 +15,10 @@ def pedidos(bancoPedidos,bancoEntregas):
         match opcao:
             case 1:
                 pedido=cadastrar()
+                l.limpar()
+                print("\n\t-- CADASTRO DE PEDIDOS --")
+                print("\nPedido cadastrado com sucesso!")
+                input("\nPressione ENTER para prosseguir...")
                 id_pedido=g.gerar_id(1)
                 bancoPedidos[id_pedido]=pedido
                 if bancoPedidos == {} or bancoEntregas == {}:
@@ -88,7 +92,7 @@ def cancelar_pedido(bancoPedidos,bancoEntregas):
     if bancoPedidos != {}:
         print("\n-- PEDIDOS DISPONÍVEIS --")
         for id_pedido,dados in bancoPedidos.items():
-            status = str(dados[4])
+            status = dados[4]
             if status == "Pendente":
                 cont+=1
                 print(f"\nID: {id_pedido} | Nome: {dados[0]} | ID do entregador: {dados[5]} | Status: {dados[4]}")
@@ -121,8 +125,8 @@ def remover_associacao(bancoPedidos,bancoEntregas):
     if bancoPedidos != {}:
         print("\n-- PEDIDOS DISPONÍVEIS --")
         for id_pedido,dados in bancoPedidos.items():
-            statusP=str(dados[4])
-            statusE=str(dados[5])
+            statusP=dados[4]
+            statusE=dados[5]
             if statusE != "0" or statusP == "Em rota":
                 print(f"\nID: {id_pedido} | Nome: {dados[0]} | ID do entregador: {dados[5]}")
         id_pedido=input("\nDigite o ID do pedido que você quer desassociar de um entregador: ")
@@ -152,8 +156,8 @@ def associar_pedido(bancoPedidos, bancoEntregas):
         associou = False
         for id_pedido, dadosP in bancoPedidos.items():
             for id_entregador, dadosE in bancoEntregas.items():
-                statusP = str(dadosP[4])
-                statusE = str(dadosE[3])
+                statusP = dadosP[4]
+                statusE = dadosE[3]
                 if statusP == "Pendente" and statusE == "Disponível":
                     dadosP[4] = "Em rota"
                     dadosP[5] = id_entregador
@@ -177,7 +181,7 @@ def finalizar_pedido(bancoPedidos, bancoEntregas):
         if bancoEntregas != {}:
             print("\n-- PEDIDOS DISPONÍVEIS --")
             for id_pedido, dados in bancoPedidos.items():
-                status = str(dados[4])
+                status = dados[4]
                 if status == "Em rota":
                     print(f"\nID: {id_pedido} | Nome: {dados[0]} | ID do entregador: {dados[5]}")
             id = input("\nDigite o ID do pedido que será finalizado: ")
@@ -209,7 +213,7 @@ def reativar_pedido(bancoPedidos):
     if bancoPedidos != {}:
         print("\n-- PEDIDOS CANCELADOS --")
         for id_pedido,dados in bancoPedidos.items():
-            status = str(dados[4])
+            status = dados[4]
             if status == "Cancelado":
                 print(f"\nID: {id_pedido} | Nome: {dados[0]} | ID do entregador: {dados[5]}")
         id=input("\nDigite o ID do pedido que será reativado: ")

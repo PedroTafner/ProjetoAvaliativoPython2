@@ -141,7 +141,7 @@ def relatorios(bancoPedidos, bancoEntregas):
         print("\n\t-- RELATÓRIOS OPERACIONAIS --")
         print("\n1 - Total de Pedidos")
         print("2 - Quantidade por Status")
-        print("3 - Alta Prioridade")
+        print("3 - Pedidos de Alta Prioridade")
         print("4 - Entregador com Maior Número de Entregas")
         print("5 - Voltar")
         

@@ -18,6 +18,10 @@ def entregadores(bancoPedidos,bancoEntregas,id_pedido):
             
             case 1:
                 entrega=cadastrar(bancoEntregas,id_pedido)
+                l.limpar()
+                print("\n\t-- CADASTRO DE ENTREGADOR --")
+                print("\nEntregador cadastrado com sucesso!")
+                input("\nPressione ENTER para prosseguir...")
                 id_entregador=g.gerar_id(2)
                 bancoEntregas[id_entregador]=entrega
                 if bancoEntregas == {} or bancoPedidos == {}:
@@ -56,6 +60,8 @@ def remover_entregador(bancoEntregas):
     l.limpar()
     print("\n\t-- REMOÇÃO DE ENTREGADOR --")
     if bancoEntregas != {}:
+        for id_entregador,dados in bancoEntregas.items():
+            print(f"\nID: {id_entregador} | Nome: {dados[0]} | Veículo: {dados[1]}")
         id=input("\nDigite o ID do entregador que você quer remover: ")
         if id not in bancoEntregas.keys():
             print("\nEntregador não encontrado.")
